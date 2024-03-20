@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="model-is-open model-is-opening model-is-closing">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,60 +12,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Madimi+One&family=Pridi&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
   </head>
   <body>
     <main class="container-fluid">
-      <div class="grid">
-        <div>
-          <article>
-            <header>
-              <h1>the hobbit</h1>
-            </header>
-            <p>by J.J.R</p>
-            <P> <mark>255 pages</marl></P>
-            <fieldset class="grid">
-              <legend>Read status</legend>
-              <label for="readState"><input type="radio" id="readState" name="readState" area-label="Radio">read</label>
-              <label for="notReadState"><input type="radio" id="notReadState" name="readState" area-label="Radio">not read</label>
-            </fieldset>
-            <button>remove</button>
-          </article>
-        </div>
-        <div>
-          <article>
-            <header>
-              <h1>the hobbit</h1>
-            </header>
-            <p>by J.J.R</p>
-            <P> <mark>255 pages</marl></P>
-              <fieldset class="grid">
-                <legend>Read status</legend>
-                <label for="readState"><input type="radio" id="readState" name="readState" area-label="Radio">read</label>
-              <label for="notReadState"><input type="radio" id="notReadState" name="readState" area-label="Radio">not read</label>
-            </fieldset>
-            <button>remove</button>
-          </article>
-        </div>
-        <div>
-          <article>
-            <header>
-              <h1>the hobbit</h1>
-            </header>
-            <p>by J.J.R</p>
-            <P><mark>255 pages</marl></P>
-            <fieldset class="grid">
-              <legend>Read status</legend>
-              <label for="readState"><input type="radio" id="readState" name="readState" area-label="Radio">read</label>
-              <label for="notReadState"><input type="radio" id="notReadState" name="readState" area-label="Radio">not read</label>
-            </fieldset>
-            <button>remove</button>
-          </article>
-        </div>
-      </div>
-      <button>Add New Book</button>
-      <dialog>
+      <!-- basic cards to allocate screen -->
+      <div class="grid gridContainer"></div>
+      <!-- start of dialog -->
+      <dialog >
         <article>
           <header>
             <h1>Add a new book</h1>
@@ -73,20 +27,22 @@
           <fieldset>
             <legend>The new book's data</legend>
             <label for="name">Enter the book's name :</label>
-            <input type="text"  id="name" name="bookName" placeholder="Click here to enter name" aria-label="Text" />
+            <input type="text"  id="name" name="bookName" placeholder="Click here to enter name" aria-label="Text" class="title"/>
             <label for="author">Enter the book's author name :</label>
-            <input type="text" id="author" name="bookAuthor" placeholder="Click here to enter author name" area-label="Text">
+            <input type="text" id="author" name="bookAuthor" placeholder="Click here to enter author name" area-label="Text" class="author">
             <label for="pages">Enter the amount of pages :</label>
-            <input type="number" id="pages" name="pageNumber" placeholder="Click here to enter the amount of pages" area-label="Number">
-            <label for="readState"><input type="radio" id="readState" name="readState" area-label="Radio">read</label>
-            <label for="notReadState"><input type="radio" id="notReadState" name="readState" area-label="Radio">not read</label>
+            <input type="number" id="pages" name="pageNumber" placeholder="Click here to enter the amount of pages" area-label="Number" class="pages">
+            <label>
+              <input type="checkbox" name="newBook" class="checkbox"/>
+              I have read this book
+            </label>
           </fieldset>
-            <button class="secondary">Cancel</button>
-            <button>Add Book</button>
+            <button class="secondary closeDialog">Cancel</button>
+            <button class="addBookDialog">Add Book</button>
         </article>
       </dialog>
+      <!-- end of dialog -->
+      <button class="addNewBook">Add New Book</button> 
     </main>
   </body>
 </html>
-
-
