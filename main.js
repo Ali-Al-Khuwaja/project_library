@@ -22,14 +22,9 @@ function BOOK(title,author,pages,id,checkbox) {
 
 function addBookRequest(){
 //store all data from dialog into a new created book object and push it in my library array
-  let newBookTitle = bookTitle.value;
-  let newBookAuthor = bookPages.value;
-  let newBookPages = bookPages.value;
   let newBookId = myLibrary.length + 1;
-  let newBookCheckbox = checkbox.value ;
-  let book = new BOOK(newBookTitle,newBookAuthor,newBookPages,newBookId,newBookCheckbox); 
+  let book = new BOOK(bookTitle.value ,bookPages.value,bookPages.value,newBookId,checkbox.checked); 
   myLibrary.push(book);
-  console.log(`myLibrary now has a new item in it and it's called ${console.log(myLibrary[0])} and ${book}`);
   display();
 };
 
@@ -50,7 +45,7 @@ function createHTML(book){
         I have read this book
         </label>
       </fieldset>
-      <button class="remove">remove</button>
+      <button class="remove${book.id}">remove</button>
     </article>
   </div>`
   }else{
@@ -68,19 +63,44 @@ function createHTML(book){
         I have read this book
         </label>
       </fieldset>
-      <button class="remove">remove</button>
+      <button class="remove${book.id}">remove</button>
     </article>
   </div>`
   };
+  let bookID = book.id ;
+  canRemove(bookID);
 };
-// don't touch , it's working
+// function canRemove(someID) {
+//   let removeButtons = document.querySelectorAll('.remove');
+//   SomeID = someID ;
+//   removeButtons.forEach(button => {
+//     button.addEventListener('click', () => {
+//       myLibrary = myLibrary.filter(function (ThisBook,SomeID){
+//         console.log(myLibrary.length, myLibrary[SomeID] , This);
+//         return ThisBook !== SomeID ;
+//       }); 
+//       display();
+//     });
+//   });
+// }
+function canRemove(bookID){
+  let remove = document.querySelector(`.remove${bookID}`);
+  remove.addEventListener('click' , ()=>{
+    myLibrary = myLibrary.filter(function (book){
+      return book.id !== bookID ;
+    });
+    display();
+  });
+};
+
 function display(){
   gridContainer.innerHTML = '';
   for (let i=0; myLibrary.length>i;i++){
-    console.log(`hi i am ${myLibrary[i]}`);
     createHTML(myLibrary[i]); 
   };
 };
+
+//dialog 🖣
 addNewBook.addEventListener('click',()=>{
   html.classList.add('modal-is-opening');
   dialog.showModal();
