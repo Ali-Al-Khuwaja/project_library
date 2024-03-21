@@ -23,7 +23,7 @@ function BOOK(title,author,pages,id,checkbox) {
 function addBookRequest(){
 //store all data from dialog into a new created book object and push it in my library array
   let newBookId = myLibrary.length + 1;
-  let book = new BOOK(bookTitle.value ,bookPages.value,bookPages.value,newBookId,checkbox.checked); 
+  let book = new BOOK(bookTitle.value ,bookAuthor.value,bookPages.value,newBookId,checkbox.checked); 
   myLibrary.push(book);
   display();
 };
