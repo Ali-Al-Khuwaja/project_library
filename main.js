@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 let myLibrary = [];
 
 const gridContainer = document.querySelector('.gridContainer');
@@ -12,52 +12,37 @@ const html = document.querySelector('html');
 const checkbox = document.querySelector('.checkbox');
 
 // get all the required data from the inputs and assign them to the template
+function BOOK(title,author,pages,id,checkbox) {
+  this.title = title ;
+  this.author = author ;
+  this.pages = pages ;
+  this.id = id ;
+  this.checkbox = checkbox ;
+};
+
 function addBookRequest(){
-  let containTitle ;
-  let containAuthor ;
-  let containPages ;
-  let id;
-  containTitle = bookTitle.value;
-  containAuthor = bookAuthor.value;
-  containPages = bookPages.value;
-  // give this book an id so it can be removed from the myLibrary array 
-  id = myLibrary.length +1 ;
-  createBook(containTitle,containAuthor,containPages ,checkbox.checked , id);
-  display();
-}
-
-// this will create an object with data as a book without html
-function createBook(title,author,pages,checkbox,id){
-  let book = {
-    title: title ,
-    author: author ,
-    pages: pages ,
-    checkbox: checkbox ,
-    id: id ,
-  }; // push it to my library to use call for displaying HTML 
+//store all data from dialog into a new created book object and push it in my library array
+  let newBookTitle = bookTitle.value;
+  let newBookAuthor = bookPages.value;
+  let newBookPages = bookPages.value;
+  let newBookId = myLibrary.length + 1;
+  let newBookCheckbox = checkbox.value ;
+  let book = new BOOK(newBookTitle,newBookAuthor,newBookPages,newBookId,newBookCheckbox); 
   myLibrary.push(book);
-}
-function display(){
-  gridContainer.innerHTML = '';
-  for(let i=0;myLibrary.length>i;i++){
-    gridContainer.innerHTML += createHTML(myLibrary[i]);
-  };
-}
+  console.log(`myLibrary now has a new item in it and it's called ${console.log(myLibrary[0])} and ${book}`);
+  display();
+};
 
+// This function should receive an array item and create HTML based on object content
 function createHTML(book){
-  let BookTitle = book.title;
-  let bookAuthor = book.author;
-  let BookPages = book.pages;
-  let BookCheckbox = book.checkbox;
-  let BookId = book.id ;
-  if (BookCheckbox===true){
+  if (book.checkbox===true){
     gridContainer.innerHTML += `<div>
     <article>
       <header>
-        <h1>${BookTitle}</h1>
+        <h1>${book.title}</h1>
       </header>
-      <p>by ${bookAuthor}</p>
-      <P><mark>${BookPages} pages</marl></P>
+      <p>by ${book.author}</p>
+      <P><mark>${book.pages} pages</marl></P>
       <fieldset class="grid">
         <legend>Read status</legend>
         <label>
@@ -72,10 +57,10 @@ function createHTML(book){
     gridContainer.innerHTML += `<div>
     <article>
       <header>
-        <h1>${BookTitle}</h1>
+        <h1>${book.title}</h1>
       </header>
-      <p>by ${BookAuthor}</p>
-      <P><mark>${BookPages} pages</marl></P>
+      <p>by ${book.author}</p>
+      <P><mark>${book.pages} pages</marl></P>
       <fieldset class="grid">
         <legend>Read status</legend>
         <label>
@@ -87,32 +72,15 @@ function createHTML(book){
     </article>
   </div>`
   };
-  removeAbility(BookId);
 };
-
-function removeAbility(book){
-  const remove = document.querySelector('.remove');
-  // remove.addEventListener('click',removeBook(book.id)); big no no
-  remove.addEventListener('click',()=>{
-    removeBook(book.id);
-  });
-
-}
-
-function removeBook(id){
-  const myNewLibraryArray = myLibrary.filter((id)=>{
-    for(let i=0;myLibrary.length>=i;i++){
-      if(myLibrary[i]===id){
-        return myLibrary[i];
-      };
-    };
-  });
-  myLibrary = [...myNewLibraryArray] ;
-  console.log(myLibrary);
-  display();
+// don't touch , it's working
+function display(){
+  gridContainer.innerHTML = '';
+  for (let i=0; myLibrary.length>i;i++){
+    console.log(`hi i am ${myLibrary[i]}`);
+    createHTML(myLibrary[i]); 
+  };
 };
-
-// dialog
 addNewBook.addEventListener('click',()=>{
   html.classList.add('modal-is-opening');
   dialog.showModal();
@@ -125,4 +93,3 @@ addBookDialog.addEventListener('click',()=>{
   dialog.close();
   addBookRequest();
 });
-// end of dialog
