@@ -1,45 +1,51 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light dark" />
-    <title>Hello world!</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.red.min.css"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Madimi+One&family=Pridi&display=swap" rel="stylesheet">
-    <script src="main.js" defer></script>
-  </head>
-  <body>
-    <main class="container-fluid">
-      <div class="grid gridContainer"></div>
-      <dialog >
-        <article>
-          <header>
-            <h1>Add a new book</h1>
-          </header>
-          <fieldset>
-            <legend>The new book's data</legend>
-            <label for="name">Enter the book's name :</label>
-            <input type="text"  id="name" name="bookName" placeholder="Click here to enter name" aria-label="Text" class="title"/>
-            <label for="author">Enter the book's author name :</label>
-            <input type="text" id="author" name="bookAuthor" placeholder="Click here to enter author name" area-label="Text" class="author">
-            <label for="pages">Enter the amount of pages :</label>
-            <input type="number" id="pages" name="pageNumber" placeholder="Click here to enter the amount of pages" area-label="Number" class="pages">
-            <label>
-              <input type="checkbox" name="newBook" class="checkbox"/>
-              I have read this book
-            </label>
-          </fieldset>
-            <button class="secondary closeDialog">Cancel</button>
-            <button class="addBookDialog">Add Book</button>
-        </article>
-      </dialog>
-      <button class="addNewBook">Add New Book</button> 
-    </main>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark" />
+  <title>Hello world!</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.red.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Madimi+One&family=Pridi&display=swap" rel="stylesheet">
+  <script src="main.js" defer></script>
+</head>
+
+<body>
+  <header class="container">
+    <h1>My library</h1>
+  </header>
+  <main class="container">
+    <div class="grid gridContainer"></div>
+    <dialog>
+      <article>
+        <header>
+          <h1>Add a new book</h1>
+        </header>
+        <fieldset>
+          <legend>The new book's data</legend>
+          <label for="name">Enter the book's name :</label>
+          <input type="text" id="name" name="bookName" placeholder="Click here to enter name" aria-label="Text"
+            class="title" />
+          <label for="author">Enter the book's author name :</label>
+          <input type="text" id="author" name="bookAuthor" placeholder="Click here to enter author name"
+            area-label="Text" class="author">
+          <label for="pages">Enter the amount of pages :</label>
+          <input type="number" id="pages" name="pageNumber" placeholder="Click here to enter the amount of pages"
+            area-label="Number" class="pages">
+          <label>
+            <input type="checkbox" name="newBook" class="checkbox" />
+            I have read this book
+          </label>
+        </fieldset>
+        <button class="secondary closeDialog">Cancel</button>
+        <button class="addBookDialog">Add Book</button>
+      </article>
+    </dialog>
+    <button class="addNewBook">Add New Book</button>
+  </main>
+</body>
+
 </html>
