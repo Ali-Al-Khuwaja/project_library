@@ -1,36 +1,45 @@
-'use strict';
-let myLibrary = [];
+"use strict";
 
-const gridContainer = document.querySelector('.gridContainer');
-const bookTitle = document.querySelector('.title');
-const bookAuthor = document.querySelector('.author');
-const bookPages = document.querySelector('.pages');
-const dialog = document.querySelector('dialog');
-const addNewBook = document.querySelector('.addNewBook');
-const closeDialog = document.querySelector('.closeDialog');
-const html = document.querySelector('html');
-const checkbox = document.querySelector('.checkbox');
+// Do not forget to define on the prototype (all the methods)
 
-// get all the required data from the inputs and assign them to the template
-function BOOK(title,author,pages,id,checkbox) {
-  this.title = title ;
-  this.author = author ;
-  this.pages = pages ;
-  this.id = id ;
-  this.checkbox = checkbox ;
+// Book information selectors
+const bookTitle = document.querySelector(".title");
+const bookAuthor = document.querySelector(".author");
+const bookPages = document.querySelector(".pages");
+const checkbox = document.querySelector(".checkbox");
+
+// Book object constructor
+function Book(title, author, pages, id, checkbox) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.id = id;
+  this.checkbox = checkbox;
+}
+
+Book.libraryArray = []; // Static property on the Book constructor (shared across all books)
+Book.prototype.addToLibrary = function () {
+  Book.libraryArray.push(this); // This is the calling Object
 };
 
-function addBookRequest(){
-//store all data from dialog into a new created book object and push it in my library array
-  let newBookId = myLibrary.length + 1;
-  let book = new BOOK(bookTitle.value ,bookAuthor.value,bookPages.value,newBookId,checkbox.checked); 
-  myLibrary.push(book);
+function addBookRequest() {
+  // Store all data from dialog into a new created book object and push it in library array
+  let newBookId = Book.libraryArray.length + 1;
+  let book = new Book(
+    bookTitle.value,
+    bookAuthor.value,
+    bookPages.value,
+    newBookId,
+    checkbox.checked
+  );
+  book.addToLibrary(book); // I remember ,this function is shared to all instances of Book
   display();
-};
+}
 
 // This function should receive an array item and create HTML based on object content
-function createHTML(book){
-  if (book.checkbox===true){
+const gridContainer = document.querySelector(".gridContainer");
+function createHTML(book) {
+  if (book.checkbox === true) {
     gridContainer.innerHTML += `<div>
     <article>
       <header>
@@ -47,8 +56,8 @@ function createHTML(book){
       </fieldset>
       <button class="remove${book.id}">remove</button>
     </article>
-  </div>`
-  }else{
+  </div>`;
+  } else {
     gridContainer.innerHTML += `<div>
     <article>
       <header>
@@ -65,51 +74,44 @@ function createHTML(book){
       </fieldset>
       <button class="remove${book.id}">remove</button>
     </article>
-  </div>`
-  };
-  let bookID = book.id ;
+  </div>`;
+  }
+  let bookID = book.id;
   canRemove(bookID);
-};
-// function canRemove(someID) {
-//   let removeButtons = document.querySelectorAll('.remove');
-//   SomeID = someID ;
-//   removeButtons.forEach(button => {
-//     button.addEventListener('click', () => {
-//       myLibrary = myLibrary.filter(function (ThisBook,SomeID){
-//         console.log(myLibrary.length, myLibrary[SomeID] , This);
-//         return ThisBook !== SomeID ;
-//       }); 
-//       display();
-//     });
-//   });
-// }
-function canRemove(bookID){
+}
+function canRemove(bookID) {
   let remove = document.querySelector(`.remove${bookID}`);
-  remove.addEventListener('click' , ()=>{
-    myLibrary = myLibrary.filter(function (book){
-      return book.id !== bookID ;
+  remove.addEventListener("click", () => {
+    Book.libraryArray = Book.libraryArray.filter(function (book) {
+      return book.id !== bookID;
     });
     display();
   });
-};
+}
 
-function display(){
-  gridContainer.innerHTML = '';
-  for (let i=0; myLibrary.length>i;i++){
-    createHTML(myLibrary[i]); 
-  };
-};
+function display() {
+  gridContainer.innerHTML = "";
+  for (let i = 0; Book.libraryArray.length > i; i++) {
+    createHTML(Book.libraryArray[i]);
+  }
+}
 
-//dialog 🖣
-addNewBook.addEventListener('click',()=>{
-  html.classList.add('modal-is-opening');
+// Dialog DOM code 🖣
+
+const dialog = document.querySelector("dialog");
+
+const addNewBook = document.querySelector(".addNewBook");
+addNewBook.addEventListener("click", () => {
+  const html = document.querySelector("html");
+  html.classList.add("modal-is-opening");
   dialog.showModal();
 });
-closeDialog.addEventListener('click',()=>{
+const closeDialog = document.querySelector(".closeDialog");
+closeDialog.addEventListener("click", () => {
   dialog.close();
 });
-const addBookDialog = document.querySelector('.addBookDialog');
-addBookDialog.addEventListener('click',()=>{
+const addBookDialog = document.querySelector(".addBookDialog");
+addBookDialog.addEventListener("click", () => {
   dialog.close();
   addBookRequest();
 });
