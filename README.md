@@ -1,7 +1,5 @@
 > ## project_library
-phew , it took way loner that i expected , i really did forget a lot of js and had to revisit a lot of topics , and still , i hate how bad error handling is in js 
 
- > ## does it work  ?
-well yes it does , but the only issue is that you can only delete books in the same order you added them , that's a bug and i'm already burned out of this project , maybe i will fix later , it's not like any one would use this crappy code , it's about learning javascript 
-> ## where is the css file ? 
-I didn't make one , i just used **pico.css** framework , it's really simple and clean , don't judge me , it's time to learn js not css
+This is a library app , you can add books and update their status!
+
+The purpose of this project is to use a design pattern in practice ,for this one I will use objects and objects constructors
