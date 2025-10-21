@@ -1,7 +1,5 @@
 "use strict";
 
-// Do not forget to define on the prototype (all the methods)
-
 // Book information selectors
 const bookTitle = document.querySelector(".title");
 const bookAuthor = document.querySelector(".author");
@@ -18,13 +16,14 @@ function Book(title, author, pages, id, checkbox) {
 }
 
 Book.libraryArray = []; // Static property on the Book constructor (shared across all books)
+Book.nextId = 1; // Add a counter to generate unique IDs
 Book.prototype.addToLibrary = function () {
   Book.libraryArray.push(this); // This is the calling Object
 };
 
 function addBookRequest() {
   // Store all data from dialog into a new created book object and push it in library array
-  let newBookId = Book.libraryArray.length + 1;
+  let newBookId = Book.nextId++;
   let book = new Book(
     bookTitle.value,
     bookAuthor.value,
@@ -39,52 +38,37 @@ function addBookRequest() {
 // This function should receive an array item and create HTML based on object content
 const gridContainer = document.querySelector(".gridContainer");
 function createHTML(book) {
-  if (book.checkbox === true) {
-    gridContainer.innerHTML += `<div>
+  const readStatus = book.checkbox ? "checked" : "";
+
+  // Create elements instead of using innerHTML
+  const bookDiv = document.createElement("div");
+  bookDiv.innerHTML = `
     <article>
       <header>
         <h1>${book.title}</h1>
       </header>
       <p>by ${book.author}</p>
-      <P><mark>${book.pages} pages</marl></P>
+      <P><mark>${book.pages} pages</mark></P>
       <fieldset class="grid">
         <legend>Read status</legend>
         <label>
-        <input type="checkbox" name="newBook" checked/>
-        I have read this book
+          <input type="checkbox" name="newBook" ${readStatus}/>
+          I have read this book
         </label>
       </fieldset>
-      <button class="remove${book.id}">remove</button>
+      <button class="remove-btn" data-id="${book.id}">remove</button>
     </article>
-  </div>`;
-  } else {
-    gridContainer.innerHTML += `<div>
-    <article>
-      <header>
-        <h1>${book.title}</h1>
-      </header>
-      <p>by ${book.author}</p>
-      <P><mark>${book.pages} pages</marl></P>
-      <fieldset class="grid">
-        <legend>Read status</legend>
-        <label>
-        <input type="checkbox" name="newBook"/>
-        I have read this book
-        </label>
-      </fieldset>
-      <button class="remove${book.id}">remove</button>
-    </article>
-  </div>`;
-  }
-  let bookID = book.id;
-  canRemove(bookID);
-}
-function canRemove(bookID) {
-  let remove = document.querySelector(`.remove${bookID}`);
-  remove.addEventListener("click", () => {
-    Book.libraryArray = Book.libraryArray.filter(function (book) {
-      return book.id !== bookID;
-    });
+  `;
+  gridContainer.appendChild(bookDiv);
+
+  /* The arrow function CAPTURES the `book` variable
+  At this moment, `book` refers to `book1`
+  So this function will ALWAYS remove book with id = 1 */
+  const removeBtn = bookDiv.querySelector(".remove-btn");
+  // when you add an event listener ,then js will remember it
+  removeBtn.addEventListener("click", () => {
+    //Remove any book where b.id !== 1 for example
+    Book.libraryArray = Book.libraryArray.filter((b) => b.id !== book.id);
     display();
   });
 }
@@ -99,7 +83,6 @@ function display() {
 // Dialog DOM code 🖣
 
 const dialog = document.querySelector("dialog");
-
 const addNewBook = document.querySelector(".addNewBook");
 addNewBook.addEventListener("click", () => {
   const html = document.querySelector("html");
